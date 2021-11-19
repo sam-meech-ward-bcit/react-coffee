@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import OrderForm from "./OrderForm";
+import OrderConfirmation from "./OrderConfirmation";
+
 
 function App() {
+  
+  const [submitted, setSubmitted] = useState(false)
+
+  const callback = (numberOfCoffees, coffeeetype) => {
+    setSubmitted(true)
+    console.log("fallback", numberOfCoffees, coffeeetype)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { submitted ?
+      <OrderConfirmation></OrderConfirmation>
+      :
+      <OrderForm username="Jeremy" onSubmit={callback}></OrderForm>
+      }
     </div>
   );
 }

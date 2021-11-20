@@ -7,16 +7,17 @@ import OrderConfirmation from "./OrderConfirmation";
 function App() {
   
   const [submitted, setSubmitted] = useState(false)
+  const [coffees, setCoffees] = useState([])
 
-  const callback = (numberOfCoffees, coffeeetype) => {
+  const callback = (coffees) => {
+    setCoffees(coffees)
     setSubmitted(true)
-    console.log("fallback", numberOfCoffees, coffeeetype)
   }
 
   return (
     <div className="App">
       { submitted ?
-      <OrderConfirmation></OrderConfirmation>
+      <OrderConfirmation coffees={coffees}></OrderConfirmation>
       :
       <OrderForm username="Jeremy" onSubmit={callback}></OrderForm>
       }

@@ -4,11 +4,29 @@ import { useState } from 'react'
 export default function OrderForm(props) {
   const [number, setNumber] = useState(0)
   const [coffeeType, setCoffeeType] = useState('')
-  
+  const [coffees, setCoffees] = useState([])
+
+  // This function `OrderForm` can be called any number of times by react.
+  console.log("how many times will this console log be called???????")
+
   const handleFormSubmission = e => {
     e.preventDefault()
     console.log("form submitted", number, coffeeType);
-    props.onSubmit(number, coffeeType)
+
+    const coffee = {
+      number,
+      coffeeType
+    }
+    setCoffees([...coffees, coffee])
+
+    setNumber(0)
+    setCoffeeType("")
+  }
+  
+  const orderMyCoffeeeesssss = () => {
+    console.log("Make the order 🤗")
+    console.log(coffees)
+    props.onSubmit(coffees)
   }
 
   const handleChangeOnNumber = event => {
@@ -31,6 +49,7 @@ export default function OrderForm(props) {
 
       <select
         onChange={handleChangeOnCoffeeType}
+        value={coffeeType}
         name="coffees"
         id="coffee-select"
       >
@@ -44,12 +63,15 @@ export default function OrderForm(props) {
       <label for="quanitity"></label>
       <input
         onChange={handleChangeOnNumber}
+        value={number}
         type="number"
         id="quanitity"
       ></input>
 
-      <button type="submit">Order</button>
+      <button type="submit">Add to Order</button>
     </form>
+
+    <button onClick={orderMyCoffeeeesssss}>Order</button>
 
     <section>
       <p>Your order is {number} {coffeeType} {props.username}</p>

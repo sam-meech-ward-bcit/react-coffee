@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 export default function OrderForm(props) {
   const [number, setNumber] = useState(0)
   const [coffeeType, setCoffeeType] = useState('')
   const [coffees, setCoffees] = useState([])
+
+
+  useEffect(() => {
+    document.title = number
+  }, [number])
 
   // This function `OrderForm` can be called any number of times by react.
   console.log("how many times will this console log be called???????")
@@ -44,38 +49,32 @@ export default function OrderForm(props) {
 
   return (
     <>
-    <form onSubmit={handleFormSubmission}>
-      <label for="coffee-select">Choose a coffee:</label>
+      <form onSubmit={handleFormSubmission}>
+        <label htmlFor="coffee-select">Choose a coffee:</label>
 
-      <select
-        onChange={handleChangeOnCoffeeType}
-        value={coffeeType}
-        name="coffees"
-        id="coffee-select"
-      >
-        <option disabled value="">--Please choose an option--</option>
-        <option value="espressso">Espressso</option>
-        <option value="mocha">Mocha</option>
-        <option value="drip">Drip</option>
-        <option value="latte">Latté</option>
-      </select>
+        <select onChange={handleChangeOnCoffeeType} value={coffeeType} name="coffees" id="coffee-select">
+          <option disabled value="">
+            --Please choose an option--
+          </option>
+          <option value="espressso">Espressso</option>
+          <option value="mocha">Mocha</option>
+          <option value="drip">Drip</option>
+          <option value="latte">Latté</option>
+        </select>
 
-      <label for="quanitity"></label>
-      <input
-        onChange={handleChangeOnNumber}
-        value={number}
-        type="number"
-        id="quanitity"
-      ></input>
+        <label htmlFor="quanitity"></label>
+        <input onChange={handleChangeOnNumber} value={number} type="number" id="quanitity"></input>
 
-      <button type="submit">Add to Order</button>
-    </form>
+        <button type="submit">Add to Order</button>
+      </form>
 
-    <button onClick={orderMyCoffeeeesssss}>Order</button>
+      <button onClick={orderMyCoffeeeesssss}>Order</button>
 
-    <section>
-      <p>Your order is {number} {coffeeType} {props.username}</p>
-    </section>
+      <section>
+        <p>
+          Your order is {number} {coffeeType} {props.username}
+        </p>
+      </section>
     </>
-  );
+  )
 }
